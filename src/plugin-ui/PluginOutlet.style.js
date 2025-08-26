@@ -2,7 +2,9 @@ import styled from "styled-components";
 
 export const OutletContainer = styled.div`
   &.plugin-outlet {
-    // styles for plugin-outlet class if any
+    background: ${({ theme }) => theme.bgColor1};
+    color: ${({ theme }) => theme.titleColor};
+    font-family: ${({ theme }) => theme.fontFamily};
   }
 `;
 
