@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { TimeContainer } from './nowTime.style.js';
 
 export default function NowTime() {
   const [time, setTime] = useState(new Date());
@@ -11,5 +12,5 @@ export default function NowTime() {
     return () => clearInterval(intervalId);
   }, []);
 
-  return <div style={{ padding: 12 }}>{time.toLocaleTimeString()}</div>;
+  return <TimeContainer>{time.toLocaleTimeString()}</TimeContainer>;
 }

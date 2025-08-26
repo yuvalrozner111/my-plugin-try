@@ -4,5 +4,5 @@ export default {
   title: 'ByeBye',
   icon: '👋',
   // Lazy-load the plugin's root React component when needed
-  load: () => import('./index.jsx'),
+  load: () => import('./byebye.jsx'),
 };

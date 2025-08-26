@@ -10,19 +10,21 @@ class Boundary extends React.Component {
   }
 }
 
+import { OutletContainer, Info } from "./PluginOutlet.style.js";
+
 export default function PluginOutlet({ plugin }) {
   const Lazy = useMemo(() => plugin && React.lazy(plugin.load), [plugin?.id]); // load(): () => import('./index.jsx')
   return (
-    <div className="plugin-outlet">
+    <OutletContainer className="plugin-outlet">
       {!plugin ? (
-        <div style={{ padding: 12 }}>No plugin selected.</div>
+        <Info>No plugin selected.</Info>
       ) : (
-        <Boundary fallback={<div style={{ padding: 12 }}>Failed to load {plugin.title}.</div>}>
-          <Suspense fallback={<div style={{ padding: 12 }}>Loading {plugin.title}…</div>}>
+        <Boundary fallback={<Info>Failed to load {plugin.title}.</Info>}>
+          <Suspense fallback={<Info>Loading {plugin.title}…</Info>}>
             <Lazy />
           </Suspense>
         </Boundary>
       )}
-    </div>
+    </OutletContainer>
   );
 }
