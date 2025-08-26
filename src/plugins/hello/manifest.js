@@ -4,5 +4,5 @@ export default {
   title: 'Hello',
   icon: '👋',
   // Lazy-load the plugin's root React component when needed
-  load: () => import('./index.jsx'),
+  load: () => import('./hello.jsx'),
 };
