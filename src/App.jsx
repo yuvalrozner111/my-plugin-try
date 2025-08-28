@@ -5,7 +5,8 @@ import PluginBar from "./plugin-host/PluginBar";
 import PluginOutlet from "./plugin-host/PluginOutlet";
 import { ThemeProvider } from 'styled-components';
 import AppCommonsStyles from './CommonStyles';
-import { GlobalStyle } from './App.style.js';
+import { AppContainer, ButtonContainer, IconButton } from './App.style.js';
+import { FaGithub, FaBrain } from 'react-icons/fa';
 
 function App() {
   const getInitialTheme = () => {
@@ -40,16 +41,37 @@ function App() {
 
   return (
     <ThemeProvider theme={themeProps}>
-      <GlobalStyle />
-      <div>
+      <AppContainer>
         <img src={viteLogo} className="logo" alt="Vite logo" />
-      </div>
-      <h1>PluginApp</h1>
-      <button onClick={toggleTheme}>
-        Switch to {theme === 'light' ? 'Dark' : 'Light'} Theme
-      </button>
-      <PluginBar plugins={plugins} activeId={activeId} onSelect={handlePluginClicked} />
-      <PluginOutlet plugin={pluginById[activeId]} />
+
+        <ButtonContainer>
+          <IconButton
+            href="https://github.com/yuvalrozner111/my-plugin-try"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open project on GitHub"
+          >
+            <FaGithub size={18} aria-hidden="true" />
+            <span>GitHub</span>
+          </IconButton>
+
+          <IconButton
+            href="https://jules.google.com/task?repo=yuvalrozner111%2Fmy-plugin-try"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open project in Jules"
+          >
+            <FaBrain size={18} aria-hidden="true" />
+            <span>Jules</span>
+          </IconButton>
+        </ButtonContainer>
+        <h1>PluginApp</h1>
+        <button onClick={toggleTheme}>
+          Switch to {theme === 'light' ? 'Dark' : 'Light'} Theme
+        </button>
+        <PluginBar plugins={plugins} activeId={activeId} onSelect={handlePluginClicked} />
+        <PluginOutlet plugin={pluginById[activeId]} />
+      </AppContainer>
     </ThemeProvider>
   )
 }
