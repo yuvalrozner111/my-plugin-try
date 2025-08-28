@@ -1,13 +1,6 @@
-// Base typography and spacing shared across themes
 const commonStyleProps = {
   fontFamily: 'sans-serif',
   borderRadius: '6px',
-  spacing: {
-    xs: 4,
-    sm: 8,
-    md: 16,
-    lg: 24,
-  }
 };
 
 // Light theme palette and semantic tokens

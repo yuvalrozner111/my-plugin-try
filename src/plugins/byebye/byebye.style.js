@@ -12,6 +12,8 @@ export const ControlsRow = styled.div`
   margin-top: 8px;
   display: flex;
   align-items: center;
+  flex-direction: column;
+  gap: 10px;
 `;
 
 export const CounterButton = styled.button`
@@ -23,12 +25,18 @@ export const CounterButton = styled.button`
   cursor: pointer;
   font-size: 14px;
   font: inherit;
-  max-width: 120px;
+  max-width: 180px;
   margin: 0 auto;
 
   &:hover {
     background: ${({ theme }) => theme.button?.hover || '#1b74e4'};
   }
+`;
+
+export const ContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const CountLabel = styled.span`
@@ -37,17 +45,17 @@ export const CountLabel = styled.span`
   color: ${({ theme }) => theme.textColor1};
 `;
 
-const styledLabel = styled.div`
+const StyledLabel = styled.div`
   padding: 4px 8px;
   border-radius: 6px;
-`
+`;
 
-export const StyledDiv1 = styled(styledLabel)`
+export const StyledDiv1 = styled(StyledLabel)`
   color: ${({ theme }) => theme.textColor1};
   background: ${({ theme }) => theme.cardBgColor};
 `;
 
-export const StyledDiv2 = styled(styledLabel)`
+export const StyledDiv2 = styled(StyledLabel)`
   color: ${({ theme }) => theme.textColor2};
   background: ${({ theme }) => theme.cardBgColor2};
 `;
