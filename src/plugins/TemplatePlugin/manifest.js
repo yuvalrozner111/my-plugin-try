@@ -1,6 +1,6 @@
 
 export default {
-  id: 'PluginName',
+  id: 'TemplatePlugin',
   title: 'Plugin Template',
   icon: '🧩',
   theme: (await import('./ThemeStyle.js')).default,
