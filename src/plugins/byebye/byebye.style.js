@@ -9,7 +9,6 @@ export const ByeByeContainer = styled.div`
 `;
 
 export const ControlsRow = styled.div`
-  margin-top: 8px;
   display: flex;
   align-items: center;
   flex-direction: column;

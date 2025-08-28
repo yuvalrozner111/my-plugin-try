@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export const Bar = styled.nav`
-  display: flex; gap: 8px; padding: 8px;
-  border-bottom: 1px solid ${({ theme }) => theme.borderColor};
+  display: flex;
+  gap: 8px;
+  padding: 8px;
   background: ${({ theme }) => theme.bgColor};
   font-family: ${({ theme }) => theme.fontFamily};
 `;

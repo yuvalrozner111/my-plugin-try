@@ -16,7 +16,7 @@ import { OutletContainer, Info } from "./PluginOutlet.style.js";
 export default function PluginOutlet({ plugin }) {
   const Lazy = useMemo(() => plugin && React.lazy(plugin.load), [plugin?.id]); // load(): () => import('./index.jsx')
   return (
-    <OutletContainer className="plugin-outlet">
+    <OutletContainer>
       {!plugin ? (
         <Info>No plugin selected.</Info>
       ) : (

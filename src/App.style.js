@@ -1,4 +1,24 @@
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
+
+export const GlobalStyle = createGlobalStyle`
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body, #root { height: 100%; }
+
+  /* Remove default browser body margin */
+  body {
+    margin: 0;
+    padding: 0;
+    background: ${({ theme }) => theme.bgColor};
+    color: ${({ theme }) => theme.titleColor};
+    font-family: ${({ theme }) => theme.fontFamily}, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* sensible defaults for elements */
+  img { max-width: 100%; display: inline-block; }
+  a { color: inherit; text-decoration: none; }
+`;
 
 export const AppContainer = styled.div`
   min-height: 100vh;
@@ -9,38 +29,58 @@ export const AppContainer = styled.div`
   align-items: center;
   flex-direction: column;
   text-align: center;
+`;
 
-  h1 {
-    font-size: 3.2em;
-    line-height: 1.1;
+export const ThemeButton = styled.button`
+  /* compact toggle switch */
+  width: 48px;
+  height: 28px;
+  padding: 2px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: ${({ theme, active }) => (active ? theme.button.bg2 : 'transparent')};
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  transition: background 180ms ease, border-color 180ms ease;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(100,108,255,0.12);
   }
 
-  button {
-    border-radius: 8px;
-    border: 1px solid transparent;
-    padding: 0.6em 1.2em;
-    font-size: 1em;
-    font-weight: 500;
-    font-family: inherit;
-    background-color: ${({ theme }) => theme.button.bg2};
-    color: ${({ theme }) => theme.button.text2};
-    cursor: pointer;
-    transition: border-color 0.25s;
+  /* knob */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: ${({ active }) => (active ? 'calc(100% - 22px)' : '2px')};
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: ${({ theme }) => (theme.button.knob || '#fff')};
+    box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+    transition: left 180ms ease, background 180ms ease;
   }
+`;
 
-  .logo {
-    margin-top: 0rem;
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
-  }
-  .logo:hover {
+export const LogoContainer = styled.img`
+  margin-top: 0rem;
+  height: 6.4em;
+  padding: 0.8em;
+  will-change: filter;
+  transition: filter 300ms;
+
+  &:hover {
     filter: drop-shadow(0 0 2em #646cffaa);
   }
-  .logo.react:hover {
-    filter: drop-shadow(0 0 2em #61dafbaa);
-  }
+`;
+
+export const AppTitle = styled.div`
+  font-size: 2.6em !important;
+  font-weight: bold;
 `;
 
 export const ButtonContainer = styled.div`

@@ -5,7 +5,8 @@ import PluginBar from "./plugin-host/PluginBar";
 import PluginOutlet from "./plugin-host/PluginOutlet";
 import { ThemeProvider } from 'styled-components';
 import AppCommonsStyles from './CommonStyles';
-import { AppContainer, ButtonContainer, IconButton } from './App.style.js';
+import { GlobalStyle } from './App.style.js';
+import { AppContainer, ButtonContainer, IconButton, AppTitle, LogoContainer, ThemeButton } from './App.style.js';
 import { FaGithub, FaBrain } from 'react-icons/fa';
 
 function App() {
@@ -39,36 +40,41 @@ function App() {
   const currentTheme = theme === 'light' ? AppCommonsStyles.lightTheme : AppCommonsStyles.darkTheme;
   const themeProps = { ...currentTheme, ...AppCommonsStyles.commonStyleProps };
 
+
+  const getButtonContainer = () => { return (
+    <ButtonContainer>
+      <IconButton
+        href="https://github.com/yuvalrozner111/my-plugin-try"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Open project on GitHub"
+      >
+        <FaGithub size={18} aria-hidden="true" />
+        <span>GitHub</span>
+      </IconButton>
+
+      <IconButton
+        href="https://jules.google.com/task?repo=yuvalrozner111%2Fmy-plugin-try"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Open project in Jules"
+      >
+        <FaBrain size={18} aria-hidden="true" />
+        <span>Jules</span>
+      </IconButton>
+
+      <ThemeButton onClick={toggleTheme}>
+      </ThemeButton>
+    </ButtonContainer>
+  )};
+
   return (
     <ThemeProvider theme={themeProps}>
+      <GlobalStyle />
       <AppContainer>
-        <img src={viteLogo} className="logo" alt="Vite logo" />
-
-        <ButtonContainer>
-          <IconButton
-            href="https://github.com/yuvalrozner111/my-plugin-try"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Open project on GitHub"
-          >
-            <FaGithub size={18} aria-hidden="true" />
-            <span>GitHub</span>
-          </IconButton>
-
-          <IconButton
-            href="https://jules.google.com/task?repo=yuvalrozner111%2Fmy-plugin-try"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Open project in Jules"
-          >
-            <FaBrain size={18} aria-hidden="true" />
-            <span>Jules</span>
-          </IconButton>
-        </ButtonContainer>
-        <h1>PluginApp</h1>
-        <button onClick={toggleTheme}>
-          Switch to {theme === 'light' ? 'Dark' : 'Light'} Theme
-        </button>
+        <LogoContainer src={viteLogo} alt="Logo" />
+        <AppTitle>PluginApp</AppTitle>
+        {getButtonContainer()}
         <PluginBar plugins={plugins} activeId={activeId} onSelect={handlePluginClicked} />
         <PluginOutlet plugin={pluginById[activeId]} />
       </AppContainer>
