@@ -3,9 +3,9 @@ import styled from "styled-components";
 export const ByeByeContainer = styled.div`
   padding: 12px;
   border-bottom: 1px solid ${({ theme }) => theme.borderColor};
-  background: ${({ theme }) => theme.bgColor1};
+  background: ${({ theme }) => theme.bgColor};
   font-family: ${({ theme }) => theme.fontFamily};
-  color: ${({ theme }) => theme.textColor};
+  color: ${({ theme }) => theme.textColor1};
 `;
 
 export const ControlsRow = styled.div`
@@ -15,37 +15,39 @@ export const ControlsRow = styled.div`
 `;
 
 export const CounterButton = styled.button`
-  background: ${({ theme }) => theme.button?.bgColor || '#2d8cff'};
-  color: ${({ theme }) => theme.button?.textColor || 'white'};
+  background: ${({ theme }) => theme.button?.bg || '#2d8cff'};
+  color: ${({ theme }) => theme.button?.text || 'white'};
   border: 1px solid ${({ theme }) => theme.borderColor};
   padding: 6px 10px;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
   font: inherit;
+  max-width: 120px;
+  margin: 0 auto;
 
   &:hover {
-    background: ${({ theme }) => theme.button?.hoverBgColor || '#1b74e4'};
+    background: ${({ theme }) => theme.button?.hover || '#1b74e4'};
   }
 `;
 
 export const CountLabel = styled.span`
   margin-left: 8px;
   font-weight: 500;
-  color: ${({ theme }) => theme.textColor};
-`;
-
-export const StyledDiv1 = styled.div`
   color: ${({ theme }) => theme.textColor1};
-  border: 1px solid ${({ theme }) => theme.borderColor1};
 `;
 
-export const StyledDiv2 = styled.div`
+const styledLabel = styled.div`
+  padding: 4px 8px;
+  border-radius: 6px;
+`
+
+export const StyledDiv1 = styled(styledLabel)`
+  color: ${({ theme }) => theme.textColor1};
+  background: ${({ theme }) => theme.cardBgColor};
+`;
+
+export const StyledDiv2 = styled(styledLabel)`
   color: ${({ theme }) => theme.textColor2};
-  border: 1px solid ${({ theme }) => theme.borderColor2};
-`;
-
-export const StyledDiv3 = styled.div`
-  color: ${({ theme }) => theme.textColor3};
-  border: 1px solid ${({ theme }) => theme.borderColor3};
+  background: ${({ theme }) => theme.cardBgColor2};
 `;

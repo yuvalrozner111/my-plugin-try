@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
   body {
-    background-color: ${({ theme }) => theme.bgColor1};
+    background-color: ${({ theme }) => theme.bgColor};
     color: ${({ theme }) => theme.titleColor};
     font-family: ${({ theme }) => theme.fontFamily};
   }
@@ -24,8 +24,8 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 1em;
     font-weight: 500;
     font-family: inherit;
-    background-color: ${({ theme }) => theme.button.bgColor2};
-    color: ${({ theme }) => theme.button.textColor2};
+  background-color: ${({ theme }) => theme.button.bg2};
+  color: ${({ theme }) => theme.button.text2};
     cursor: pointer;
     transition: border-color 0.25s;
   }
