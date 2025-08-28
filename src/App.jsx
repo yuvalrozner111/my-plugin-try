@@ -1,8 +1,8 @@
 import viteLogo from '/burger-1-svgrepo-com.svg'
 import { useState, useEffect } from "react";
 import { plugins, pluginById } from "./plugin-loader";
-import PluginBar from "./plugin-ui/PluginBar";
-import PluginOutlet from "./plugin-ui/PluginOutlet";
+import PluginBar from "./plugin-host/PluginBar";
+import PluginOutlet from "./plugin-host/PluginOutlet";
 import { ThemeProvider } from 'styled-components';
 import AppCommonsStyles from './CommonStyles';
 import { GlobalStyle } from './App.style.js';

@@ -34,3 +34,18 @@ export const CountLabel = styled.span`
   font-weight: 500;
   color: ${({ theme }) => theme.textColor};
 `;
+
+export const StyledDiv1 = styled.div`
+  color: ${({ theme }) => theme.textColor1};
+  border: 1px solid ${({ theme }) => theme.borderColor1};
+`;
+
+export const StyledDiv2 = styled.div`
+  color: ${({ theme }) => theme.textColor2};
+  border: 1px solid ${({ theme }) => theme.borderColor2};
+`;
+
+export const StyledDiv3 = styled.div`
+  color: ${({ theme }) => theme.textColor3};
+  border: 1px solid ${({ theme }) => theme.borderColor3};
+`;

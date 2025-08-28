@@ -10,7 +10,10 @@ const AppCommonsStyles = {
     titleColor: 'white',
     bgColor1: '#232323',
     borderColor: '#444',
-    // color palette (plugins can override or extend this)
+    textColor1: '#037cacff',
+    textColor3: '#a0a0a0',
+    borderColor1: '#555',
+    borderColor3: '#777',
     palette: {
       accent: '#9b59b6',
       extraColor: '#f39c12',
@@ -28,7 +31,10 @@ const AppCommonsStyles = {
     titleColor: 'black',
     bgColor1: '#f0f0f0',
     borderColor: '#ddd',
-    // color palette (plugins can override or extend this)
+    textColor1: '#fc6464ff',
+    textColor3: '#d5ec4eff',
+    borderColor1: '#fc6464ff',
+    borderColor3: '#d5ec4eff',
     palette: {
       accent: '#3498db',
       extraColor: '#f1c40f',
