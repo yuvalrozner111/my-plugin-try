@@ -2,7 +2,6 @@ import { observer } from 'mobx-react';
 import { useStores_ } from '../../stores';
 import { HelloContainer } from './hello.style.js';
 
-// src/plugins/hello/index.jsx
 function Hello() {
   const { pluginStore } = useStores_();
   const helloStore = pluginStore.getStore('hello');

@@ -1,7 +1,10 @@
 import { makeObservable, observable, action } from 'mobx';
 
+/**
+ * PluginStore Class: This class is designed to hold and manage all other stores.
+ */
 class PluginStore {
-  stores = {};
+  stores = {}; // An observable object to hold all plugin-specific stores
 
   constructor() {
     makeObservable(this, {
@@ -10,12 +13,14 @@ class PluginStore {
     });
   }
 
-  registerStore(name, store) {
-    this.stores[name] = store;
+  // Method to add a new plugin's store
+  registerStore(pluginId, store) {
+    this.stores[pluginId] = store;
   }
 
-  getStore(name) {
-    return this.stores[name];
+  // Method to retrieve a specific plugin's store
+  getStore(pluginId) {
+    return this.stores[pluginId];
   }
 }
 

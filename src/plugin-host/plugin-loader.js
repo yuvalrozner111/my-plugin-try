@@ -1,11 +1,10 @@
+import { pluginStore } from '../stores/PluginStore';
 
 // Eagerly import all manifests at build time
-const manifestModules = import.meta.glob('./plugins/**/manifest.{js,jsx}', {
+const manifestModules = import.meta.glob('./../plugins/**/manifest.{js,jsx}', {
   eager: true,
   import: 'default',
 });
-
-import { pluginStore } from './stores/PluginStore';
 
 // Turn the modules into a clean array/registry
 let plugins = Object.entries(manifestModules).map(([path, manifest]) => ({

@@ -48,7 +48,7 @@ const darkTheme = {
   ...commonStyleProps,
   themeValue: 'dark',
   // Primary surfaces (backgrounds)
-  bgColor: '#121212',      // app background
+  bgColor: '#303030',      // app background
   bgColor2: '#1e1e1e',     // card / surface
   bgColor3: '#232323',     // alternate surface
 

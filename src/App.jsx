@@ -1,6 +1,5 @@
 import viteLogo from '/burger-1-svgrepo-com.svg'
 import { useState, useEffect } from "react";
-import { plugins, pluginById } from "./plugin-loader";
 import PluginBar from "./plugin-host/PluginBar";
 import PluginOutlet from "./plugin-host/PluginOutlet";
 import { ThemeProvider } from 'styled-components';
@@ -8,6 +7,10 @@ import AppCommonsStyles from './CommonStyles';
 import { GlobalStyle } from './App.style.js';
 import { AppContainer, ButtonContainer, IconButton, AppTitle, LogoContainer, ThemeButton } from './App.style.js';
 import { FaGithub, FaBrain } from 'react-icons/fa';
+import { pluginById, plugins } from './plugin-host/plugin-loader.js';
+
+import { observer } from 'mobx-react';
+import { useStores_ } from './stores';
 
 function App() {
   const getInitialTheme = () => {
@@ -40,6 +43,9 @@ function App() {
   const currentTheme = theme === 'light' ? AppCommonsStyles.lightTheme : AppCommonsStyles.darkTheme;
   const themeProps = { ...currentTheme, ...AppCommonsStyles.commonStyleProps };
 
+  const { userStore } = useStores_();
+  const { pluginStore } = useStores_();
+  const helloStore = pluginStore.getStore('hello');
 
   const getButtonContainer = () => { return (
     <ButtonContainer>
@@ -65,6 +71,11 @@ function App() {
 
       <ThemeButton onClick={toggleTheme}>
       </ThemeButton>
+      <input
+        type="text"
+        value={helloStore.name}
+        onChange={e => helloStore.setName(e.target.value)}
+      />
     </ButtonContainer>
   )};
 
@@ -74,6 +85,19 @@ function App() {
       <AppContainer>
         <LogoContainer src={viteLogo} alt="Logo" />
         <AppTitle>PluginApp</AppTitle>
+        <div>
+        {userStore.isLoggedIn ? (
+          <div>
+            <p>Welcome, {userStore.user.name}!</p>
+            <button onClick={() => userStore.logout()}>Logout</button>
+          </div>
+        ) : (
+          <div>
+            <p>You are not logged in.</p>
+            <button onClick={() => userStore.login('Yuval')}>Login as Yuval</button>
+          </div>
+        )}
+      </div>
         {getButtonContainer()}
         <PluginBar plugins={plugins} activeId={activeId} onSelect={handlePluginClicked} />
         <PluginOutlet plugin={pluginById[activeId]} />
@@ -82,4 +106,4 @@ function App() {
   )
 }
 
-export default App
+export default observer(App);

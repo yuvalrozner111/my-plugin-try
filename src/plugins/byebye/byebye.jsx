@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { ByeByeContainer, ControlsRow, CounterButton, CountLabel, StyledDiv1, StyledDiv2 } from "./byebye.style.js";
 
-export default function ByeBye() {
+import { observer } from 'mobx-react';
+import { useStores_ } from '../../stores';
+
+function ByeBye() {
   const [count, setCount] = useState(0);
+
+  const { pluginStore } = useStores_();
+  const helloStore = pluginStore.getStore('hello');
 
   return (
     <ByeByeContainer>
@@ -17,6 +23,13 @@ export default function ByeBye() {
           <CountLabel>Count: {count}</CountLabel>
         </div>
       </ControlsRow>
+      <input
+        type="text"
+        value={helloStore.name}
+        onChange={e => helloStore.setName(e.target.value)}
+      />
     </ByeByeContainer>
   );
 }
+
+export default observer(ByeBye);
