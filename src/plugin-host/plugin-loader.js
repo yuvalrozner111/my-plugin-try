@@ -1,7 +1,7 @@
-import { pluginStore } from '../stores/PluginStore';
+import { pluginStore } from '/src/stores/PluginStore';
 
 // Eagerly import all manifests at build time
-const manifestModules = import.meta.glob('./../plugins/**/manifest.{js,jsx}', {
+const manifestModules = import.meta.glob('/src/plugins/**/manifest.{js,jsx}', {
   eager: true,
   import: 'default',
 });

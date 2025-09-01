@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ByeByeContainer, ControlsRow, CounterButton, CountLabel, StyledDiv1, StyledDiv2 } from "./byebye.style.js";
 
 import { observer } from 'mobx-react';
-import { useStores_ } from '../../stores';
+import { useStores_ } from '/src/stores';
 
 function ByeBye() {
   const [count, setCount] = useState(0);

@@ -1,5 +1,5 @@
 import { makeObservable, observable, action } from 'mobx';
-import { GenericStore } from '../../stores/GenericStore';
+import { GenericStore } from '/src/stores/GenericStore';
 
 export class HelloStore extends GenericStore { // inherits from GenericStore.
   name = 'World';

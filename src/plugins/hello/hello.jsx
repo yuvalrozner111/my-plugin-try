@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react';
-import { useStores_ } from '../../stores';
+import { useStores_ } from '/src/stores';
 import { HelloContainer } from './hello.style.js';
 
 function Hello() {
