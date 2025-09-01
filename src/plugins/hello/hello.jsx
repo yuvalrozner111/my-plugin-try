@@ -15,6 +15,8 @@ function Hello() {
         value={helloStore.name}
         onChange={e => helloStore.setName(e.target.value)}
       />
+      <br />
+      <img src="plugins/hello/beagle.jpg" alt="A cute beagle" />
     </HelloContainer>
   );
 }
