@@ -100,7 +100,7 @@ function App() {
       </div>
         {getButtonContainer()}
         <PluginBar plugins={plugins} activeId={activeId} onSelect={handlePluginClicked} />
-        <PluginOutlet plugin={pluginById[activeId]} />
+        <PluginOutlet plugin={pluginById[activeId]} key={activeId} />
       </AppContainer>
     </ThemeProvider>
   )
