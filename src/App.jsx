@@ -8,9 +8,12 @@ import { GlobalStyle } from './App.style.js';
 import { AppContainer, ButtonContainer, IconButton, AppTitle, LogoContainer, ThemeButton } from './App.style.js';
 import { FaGithub, FaBrain } from 'react-icons/fa';
 import { pluginById, plugins } from './plugin-host/plugin-loader.js';
-
+import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import { useStores_ } from './stores';
+import i18n, { supportedLanguages } from './entry/i18n.js';
+import { STRINGS } from './constants/internal.js';
+import FormatMessage from './languageContext/FormatMessage.jsx'
 
 function App() {
   const getInitialTheme = () => {
@@ -47,6 +50,14 @@ function App() {
   const { pluginStore } = useStores_();
   const helloStore = pluginStore.getStore('hello');
 
+  const { t, i18n: i18nInstance } = useTranslation();
+  const [language, setLanguage] = useState(i18nInstance.language || 'he');
+
+  const changeLanguage = (lng) => {
+    i18nInstance.changeLanguage(lng);
+    setLanguage(lng);
+  }
+
   const getButtonContainer = () => { return (
     <ButtonContainer>
       <IconButton
@@ -69,6 +80,21 @@ function App() {
         <span>Jules</span>
       </IconButton>
 
+      <label htmlFor='lang-select' style={{ marginLeft: '10px' }}>Language:</label>
+      <select
+        id='lang-select'
+        value={language}
+        onChange={e => changeLanguage(e.target.value)}
+        aria-label="Select language"
+      >
+        {supportedLanguages.map(lang => (
+          <option key={lang} value={lang}>
+            {lang}
+          </option>
+        ))}
+      </select>
+
+      <label htmlFor='theme-select' style={{ marginLeft: '10px' }}>Theme:</label>
       <ThemeButton onClick={toggleTheme}>
       </ThemeButton>
       <input
@@ -88,12 +114,12 @@ function App() {
         <div>
         {userStore.isLoggedIn ? (
           <div>
-            <p>Welcome, {userStore.user.name}!</p>
+            <p>{t(STRINGS.WELCOME_TITLE)}, {userStore.user.name}!</p>
             <button onClick={() => userStore.logout()}>Logout</button>
           </div>
         ) : (
           <div>
-            <p>You are not logged in.</p>
+            <p><FormatMessage id={STRINGS.LOGGEDOUT_TITLE} /></p>
             <button onClick={() => userStore.login('Yuval')}>Login as Yuval</button>
           </div>
         )}
