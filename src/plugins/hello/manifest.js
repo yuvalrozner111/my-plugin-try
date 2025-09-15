@@ -6,4 +6,5 @@ export default {
   icon: '👋',
   load: () => import('./hello.jsx'),
   Store: HelloStore,
+  constants: () => import('./constants/internal.js'),
 };

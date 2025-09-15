@@ -5,4 +5,5 @@ export default {
   icon: '⏰',
   // Lazy-load the plugin's root React component when needed
   load: () => import('./nowTime.jsx'),
+  constants: () => import('./constants/internal.js'),
 };
