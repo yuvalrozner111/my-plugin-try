@@ -1,6 +1,6 @@
 import React, { Suspense, useMemo, useState, useEffect } from "react";
 import { ThemeProvider } from 'styled-components';
-import { StringsContext } from '/src/context/StringsContext';
+import { StringsContext } from '/src/contexts/StringsContext';
 import { STRINGS as HostStrings } from '/src/constants/internal.js';
 
 class Boundary extends React.Component {

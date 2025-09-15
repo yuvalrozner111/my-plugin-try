@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
-import { pluginStore } from './PluginStore';
-import { userStore } from './UserStore';
+import { pluginStore } from '../stores/PluginStore';
+import { userStore } from '../stores/UserStore';
 
 export const stores = {
   pluginStore,

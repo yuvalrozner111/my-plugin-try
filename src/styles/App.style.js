@@ -1,25 +1,5 @@
 import styled, { createGlobalStyle } from 'styled-components';
 
-export const GlobalStyle = createGlobalStyle`
-  *, *::before, *::after { box-sizing: border-box; }
-  html, body, #root { height: 100%; }
-
-  /* Remove default browser body margin */
-  body {
-    margin: 0;
-    padding: 0;
-    background: ${({ theme }) => theme.bgColor};
-    color: ${({ theme }) => theme.titleColor};
-    font-family: ${({ theme }) => theme.fontFamily}, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  /* sensible defaults for elements */
-  img { max-width: 100%; display: inline-block; }
-  a { color: inherit; text-decoration: none; }
-`;
-
 export const AppContainer = styled.div`
   min-height: 100vh;
   background-color: ${({ theme }) => theme.bgColor};

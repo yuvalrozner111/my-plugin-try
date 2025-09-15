@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react';
-import { useStores_ } from '/src/stores';
+import { useStores_ } from '/src/hooks/useStores.js';
 import { HelloContainer } from './hello.style.js';
 import { useTranslation } from 'react-i18next';
-import { useStrings } from '/src/context/StringsContext.js';
+import { useStrings } from '/src/hooks/useStrings.js';
 
 function Hello() {
   const { pluginStore } = useStores_();

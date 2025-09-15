@@ -1,6 +1,6 @@
 import { PluginNameContainer} from "./PluginName.style.js";
 import { useTranslation } from 'react-i18next';
-import { useStrings } from '/src/context/StringsContext.js';
+import { useStrings } from '/src/hooks/useStrings.js';
 
 export default function PluginName() {
 

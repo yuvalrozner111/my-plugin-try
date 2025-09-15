@@ -3,17 +3,17 @@ import { useState, useEffect } from "react";
 import PluginBar from "./plugin-host/PluginBar";
 import PluginOutlet from "./plugin-host/PluginOutlet";
 import { ThemeProvider } from 'styled-components';
-import AppCommonsStyles from './CommonStyles';
-import { GlobalStyle } from './App.style.js';
-import { AppContainer, ButtonContainer, IconButton, AppTitle, LogoContainer, ThemeButton } from './App.style.js';
+import AppCommonsStyles from './styles/CommonStyles.js';
+import { GlobalStyle } from './styles/GlobalStyle.js';
+import { AppContainer, ButtonContainer, IconButton, AppTitle, LogoContainer, ThemeButton } from './styles/App.style.js';
 import { FaGithub, FaBrain } from 'react-icons/fa';
 import { pluginById, plugins } from './plugin-host/plugin-loader.js';
 import { useTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
-import { useStores_ } from './stores';
-import i18n, { supportedLanguages } from './entry/i18n.js';
+import { useStores_ } from './hooks/useStores.js';
+import { supportedLanguages } from './config/i18n.js';
 import { STRINGS } from './constants/internal.js';
-import FormatMessage from './languageContext/FormatMessage.jsx'
+import FormatMessage from './components/common/FormatMessage.jsx'
 
 function App() {
   const getInitialTheme = () => {

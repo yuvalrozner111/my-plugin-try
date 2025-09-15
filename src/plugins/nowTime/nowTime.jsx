@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { TimeContainer } from './nowTime.style.js';
 import { useTranslation } from 'react-i18next';
-import { useStrings } from '/src/context/StringsContext.js';
+import { useStrings } from '/src/hooks/useStrings.js';
 
 export default function NowTime() {
   const [time, setTime] = useState(new Date());

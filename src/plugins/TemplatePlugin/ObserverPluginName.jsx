@@ -1,8 +1,8 @@
 import { PluginNameContainer } from "./PluginName.style.js";
 import { observer } from 'mobx-react';
-import { useStores_ } from '/src/stores/index.js';
+import { useStores_ } from '/src/hooks/useStores.js';
 import { useTranslation } from 'react-i18next';
-import { useStrings } from '/src/context/StringsContext.js';
+import { useStrings } from '/src/hooks/useStrings.js';
 
 function ObserverPluginName() {
   const { userStore } = useStores_();
