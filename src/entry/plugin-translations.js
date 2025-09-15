@@ -14,27 +14,48 @@ const pluginTranslationModules = import.meta.glob('/src/plugins/**/public/locale
     eager: true,
     import: 'default',
 });
-const appTranslationModules = import.meta.glob('/public/locales/**/*.json', {
+const appTranslationModules = import.meta.glob('/src/locales/**/*.json', {
+    eager: true,
+    import: 'default',
+});
+
+// Also eagerly import plugin manifests so we can map plugin folder names
+// to the declared plugin id (manifest.id). This lets translation namespaces
+// use the plugin's manifest id even if the folder name differs.
+const manifestModules = import.meta.glob('/src/plugins/**/manifest.js', {
     eager: true,
     import: 'default',
 });
 
 const translationModules = { ...pluginTranslationModules, ...appTranslationModules };
 
-// The path format is: /src/plugins/<plugin-id>/locales/<lang>/translation.json
+// The path format is: /src/plugins/<plugin-folder>/public/locales/<lang>/translation.json
 // or the app-level: /src/locales/<lang>/translation.json
-const pathRegex = /^(?:\/src\/plugins\/([^\/]+)\/(?:public\/)?locales\/([^\/]+)|\/public\/locales\/([^\/]+))\/translation\.json$/;
+const pathRegex = /^(?:\/src\/plugins\/([^\/]+)\/(?:public\/)?locales\/([^\/]+)|\/src\/locales\/([^\/]+))\/translation\.json$/;
+
+// Build a map from plugin folder name -> manifest.id (if available)
+const folderToManifestId = Object.entries(manifestModules).reduce((map, [mPath, manifest]) => {
+    // manifest path format: /src/plugins/<folder>/manifest.js
+    const mMatch = mPath.match(/\/src\/plugins\/([^\/]+)\/manifest\.js$/);
+    if (!mMatch) return map;
+    const folder = mMatch[1];
+    if (manifest && manifest.id) map[folder] = manifest.id;
+    return map;
+}, {});
 
 export const pluginResources = Object.entries(translationModules).reduce(
     (acc, [path, content]) => {
         const match = path.match(pathRegex);
         if (!match) return acc;
 
-        // match layout:
-        // - for plugin files: match[1] = pluginId, match[2] = lang
-        // - for root app locales: match[1] = undefined, match[2] = undefined, match[3] = lang
-        const pluginId = match[1] || 'translation'; // use default 'translation' namespace for app-level locales
-        const lang = match[2] || match[3];
+    // match layout:
+    // - for plugin files: match[1] = pluginFolderName, match[2] = lang
+    // - for root app locales: match[1] = undefined, match[2] = undefined, match[3] = lang
+    const pluginFolder = match[1];
+    const lang = match[2] || match[3];
+
+    // Prefer the manifest-declared id for the namespace, fall back to the folder name.
+    const pluginId = pluginFolder ? (folderToManifestId[pluginFolder] || pluginFolder) : 'translation';
 
         // Ensure the language and namespace objects exist
         if (!acc[lang]) acc[lang] = {};
