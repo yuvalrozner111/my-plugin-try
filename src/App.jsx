@@ -119,6 +119,7 @@ function App() {
           </div>
         ) : (
           <div>
+            <p>{t(STRINGS.DOUBLE_STRING)}</p>
             <p><FormatMessage id={STRINGS.LOGGEDOUT_TITLE} /></p>
             <button onClick={() => userStore.login('Yuval')}>Login as Yuval</button>
           </div>

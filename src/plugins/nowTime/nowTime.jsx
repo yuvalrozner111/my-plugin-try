@@ -21,6 +21,7 @@ export default function NowTime() {
   return (
     <>
       {t(STRINGS.TIME_NOW_TITLE)}
+      <p>{t(STRINGS.DOUBLE_STRING)}</p>
       <TimeContainer>{time.toLocaleTimeString()}</TimeContainer>
     </>
   );

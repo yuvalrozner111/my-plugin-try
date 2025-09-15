@@ -1,3 +1,4 @@
 export const STRINGS = {
     TIME_NOW_TITLE: 'TIME_NOW_TITLE',
+    DOUBLE_STRING: 'DOUBLE_STRING',
 };

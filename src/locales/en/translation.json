@@ -1,4 +1,5 @@
 {
     "WELCOME_TITLE": "Welcome",
-    "LOGGEDOUT_TITLE": "You are not logged in."
+    "LOGGEDOUT_TITLE": "You are not logged in.",
+    "DOUBLE_STRING": "This is a double string exampleat host level"
 }

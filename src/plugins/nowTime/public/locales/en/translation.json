@@ -1,3 +1,4 @@
 {
-    "TIME_NOW_TITLE": "The time now is:"
+    "TIME_NOW_TITLE": "The time now is:",
+    "DOUBLE_STRING": "This is a double string example at plugin level."
 }

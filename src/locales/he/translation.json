@@ -1,4 +1,5 @@
 {
     "WELCOME_TITLE": "ברוך הבא",
-    "LOGGEDOUT_TITLE": "את/ה לא מחובר כרגע."
+    "LOGGEDOUT_TITLE": "את/ה לא מחובר כרגע.",
+    "DOUBLE_STRING": "זה הוא דוגמה למחרוזת כפולה ברמת האפליקציה."
 }
