@@ -44,7 +44,13 @@ export class GenericStore {
       status: observable,
       setData: action,
       reset: action,
+      // Note: setNetworkService is NOT an 'action'
+      // as it's a one-time setup, not state mutation
     });
+  }
+  
+  setNetworkService(service) {
+    this.graphqlMethods = service;
   }
 
   setData(data) {

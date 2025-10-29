@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import { PluginNameContainer } from "./PluginName.style.js";
 import { observer } from 'mobx-react';
 import { useStores_ } from '/src/hooks/useStores.js';
@@ -5,8 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useStrings } from '/src/hooks/useStrings.js';
 
 function ObserverPluginName() {
-  const { userStore } = useStores_();
-  const { pluginStore } = useStores_();
+  const { userStore, pluginStore } = useStores_();
   const templatePluginStore = pluginStore.getStore('TemplatePluginId');
   
   // 1. Get the translation function, scoped to this plugin's namespace
@@ -25,7 +25,20 @@ function ObserverPluginName() {
         <br />
         User Name from host's UserStore: {userStore.user ? userStore.user.name : 'Guest'}
         <br />
-        Example Value from TemplatePluginStore: {templatePluginStore.exampleValue}
+        Example Value from TemplatePluginStore: {templatePluginStore ? templatePluginStore.exampleValue : 'N/A'}
+        <br />
+        Backend message: {templatePluginStore ? templatePluginStore.backendMessage : 'N/A'}
+        <br />
+        <button
+          onClick={() => {
+            if (templatePluginStore) {
+              console.log('Fetching example data from backend...');
+              templatePluginStore.fetchExampleData();
+            }
+          }}
+        >
+          Fetch Example from Backend
+        </button>
       </div>
     </PluginNameContainer>
   );
