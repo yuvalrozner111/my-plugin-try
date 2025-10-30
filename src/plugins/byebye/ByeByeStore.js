@@ -1,11 +1,13 @@
 import { makeObservable, observable, action, flow } from 'mobx';
 import { GenericStore } from '/src/stores/GenericStore';
 import { GET_COUNTRY_QUERY } from './graphql/graphql-schema';
+import { HELLO_EVENTS } from './constants/internal';
 
 export class ByeByeStore extends GenericStore {
   // store the fields returned by the GraphQL schema
   country = { name: '', capital: '', currency: '' };
   backendMessage = '';
+  helloEventMessage = 'Waiting for hello event...';
 
   constructor() {
     super();
@@ -14,6 +16,7 @@ export class ByeByeStore extends GenericStore {
       backendMessage: observable,
       setCountry: action,
       fetchCountry: flow,
+      handleHelloNameChange: action,
     });
   }
 
@@ -51,5 +54,28 @@ export class ByeByeStore extends GenericStore {
       this.setCountry(null);
       return null;
     }
+  }
+
+  /**
+   * We override setEventBus to subscribe to events when the bus is injected.
+   */
+  setEventBus(bus) {
+    super.setEventBus(bus); // This sets 'this.eventBus'
+    
+    console.log('ByeByeStore subscribing to event:', HELLO_EVENTS.NAME_CHANGED);
+    
+    // Subscribe to the event from the 'hello' plugin
+    this.eventBus.on(
+      HELLO_EVENTS.NAME_CHANGED,
+      this.handleHelloNameChange
+    );
+    
+    // It's good practice to have a cleanup method,
+    // but for stores with app-long lifecycles, it's less critical.
+  }
+
+  handleHelloNameChange = (payload) => {
+    console.log('ByeByeStore received event with payload:', payload);
+    this.helloEventMessage = `Heard hello's name changed to: ${payload.newName}`;
   }
 }

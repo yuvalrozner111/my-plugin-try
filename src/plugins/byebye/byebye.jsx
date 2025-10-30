@@ -65,6 +65,7 @@ function ByeBye() {
         value={helloStore.name}
         onChange={e => helloStore.setName(e.target.value)}
       />
+      <p>{byeByeStore.helloEventMessage}</p>
     </ByeByeContainer>
   );
 }

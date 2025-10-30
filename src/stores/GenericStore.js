@@ -39,6 +39,7 @@ export class GenericStore {
   status = 'idle';
   graphqlMethods = null; 
   notificationService = null;
+  eventBus = null;
 
   constructor() {
     makeObservable(this, {
@@ -46,7 +47,7 @@ export class GenericStore {
       status: observable,
       setData: action,
       reset: action,
-      // Note: setNetworkService is NOT an 'action'
+      // Note: setNetworkService, setNotificationService, setEventBus are NOT 'action's....
       // as it's a one-time setup, not state mutation
     });
   }
@@ -57,6 +58,10 @@ export class GenericStore {
 
   setNotificationService(service) {
     this.notificationService = service;
+  }
+
+  setEventBus(bus) {
+    this.eventBus = bus;
   }
 
   setData(data) {

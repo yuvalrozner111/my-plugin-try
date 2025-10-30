@@ -7,6 +7,7 @@ class PluginStore {
   stores = {}; // An observable object to hold all plugin-specific stores
   graphqlMethods = null; // property to hold the service reference
   notificationService = null; // property to hold notification 'api' object
+  eventBus = null; // property to hold event bus instance
 
   constructor() {
     makeObservable(this, {
@@ -38,6 +39,17 @@ class PluginStore {
     });
   }
 
+  // Method to set the event bus instance
+  setEventBus(bus) {
+    this.eventBus = bus;  
+    // Also inject it into any stores that were already registered
+    Object.values(this.stores).forEach(store => {
+      if (store.setEventBus) {
+        store.setEventBus(bus);
+      }
+    });
+  }
+
   // Method to add a new plugin's store
   registerStore(pluginId, store) {
     // Auto-inject the service when a new store is registered
@@ -47,6 +59,10 @@ class PluginStore {
     // Auto-inject notification service if it's already available
     if (this.notificationService && store.setNotificationService) {
       store.setNotificationService(this.notificationService);
+    }
+    // Auto-inject the event bus when a new store is registered
+    if (this.eventBus && store.setEventBus) {
+      store.setEventBus(this.eventBus);
     }
     this.stores[pluginId] = store;
   }

@@ -4,6 +4,7 @@ import AppWrapper from './AppWrapper.jsx';
 import { StoresContext, stores } from './contexts/StoresContext.js';
 import { NetworkContext } from './contexts/NetworkContext.js';
 import { client, graphqlMethods } from './services/NetworkService.js';
+import { eventBus } from './services/EventBus.js';
 
 // 1. Inject the stores into the client (for headers, token refresh)
 client.setStores(stores);
@@ -14,6 +15,10 @@ stores.pluginStore.setNetworkService(graphqlMethods); // This will arm the Plugi
 
 // 3. The notification service injection is REMOVED from here.
 // It will be handled by AppWrapper.
+
+// 4. Inject the event bus into the host stores
+stores.userStore.setEventBus(eventBus);
+stores.pluginStore.setEventBus(eventBus);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
