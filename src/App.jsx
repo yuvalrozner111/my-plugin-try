@@ -18,9 +18,9 @@ import FormatMessage from './components/common/FormatMessage.jsx'
 function App() {
   const getInitialTheme = () => {
     try {
-      return sessionStorage.getItem('theme') || 'light';
+      return sessionStorage.getItem('theme') || 'dark';
     } catch {
-      return 'light';
+      return 'dark';
     }
   };
 

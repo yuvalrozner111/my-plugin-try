@@ -9,8 +9,6 @@ export const stores = {
 
 export const StoresContext = createContext(stores);
 
-export const useStores_ = () => useContext(StoresContext);
-
 
 /**
  * In React, createContext and useContext work together to share data throughout your component tree without having to pass props down manually at every level.
