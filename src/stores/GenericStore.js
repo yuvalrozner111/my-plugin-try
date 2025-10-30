@@ -37,6 +37,8 @@ import { makeObservable, observable, action } from 'mobx';
 export class GenericStore {
   data = {};
   status = 'idle';
+  graphqlMethods = null; 
+  notificationService = null;
 
   constructor() {
     makeObservable(this, {
@@ -51,6 +53,10 @@ export class GenericStore {
   
   setNetworkService(service) {
     this.graphqlMethods = service;
+  }
+
+  setNotificationService(service) {
+    this.notificationService = service;
   }
 
   setData(data) {

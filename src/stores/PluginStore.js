@@ -6,6 +6,7 @@ import { makeObservable, observable, action } from 'mobx';
 class PluginStore {
   stores = {}; // An observable object to hold all plugin-specific stores
   graphqlMethods = null; // property to hold the service reference
+  notificationService = null; // property to hold notification 'api' object
 
   constructor() {
     makeObservable(this, {
@@ -26,11 +27,26 @@ class PluginStore {
     });
   }
 
+  // This method will be called by AppWrapper
+  setNotificationService(service) {
+    this.notificationService = service;
+    // Propagate to all existing stores
+    Object.values(this.stores).forEach(store => {
+      if (store.setNotificationService) {
+        store.setNotificationService(service);
+      }
+    });
+  }
+
   // Method to add a new plugin's store
   registerStore(pluginId, store) {
     // Auto-inject the service when a new store is registered
     if (this.graphqlMethods && store.setNetworkService) {
       store.setNetworkService(this.graphqlMethods);
+    }
+    // Auto-inject notification service if it's already available
+    if (this.notificationService && store.setNotificationService) {
+      store.setNotificationService(this.notificationService);
     }
     this.stores[pluginId] = store;
   }

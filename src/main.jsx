@@ -1,6 +1,6 @@
 import { StrictMode, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App.jsx';
+import AppWrapper from './AppWrapper.jsx';
 import { StoresContext, stores } from './contexts/StoresContext.js';
 import { NetworkContext } from './contexts/NetworkContext.js';
 import { client, graphqlMethods } from './services/NetworkService.js';
@@ -12,12 +12,15 @@ client.setStores(stores);
 stores.userStore.setNetworkService(graphqlMethods);
 stores.pluginStore.setNetworkService(graphqlMethods); // This will arm the PluginStore for all future plugins
 
+// 3. The notification service injection is REMOVED from here.
+// It will be handled by AppWrapper.
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <StoresContext.Provider value={stores}>
       <NetworkContext.Provider value={graphqlMethods}>
         <Suspense fallback={<div>Loading translations...</div>}>
-          <App />
+          <AppWrapper />
         </Suspense>
       </NetworkContext.Provider>
     </StoresContext.Provider>
