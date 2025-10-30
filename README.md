@@ -17,11 +17,39 @@ This project is a plugin-based web application built with React. The core archit
     * Host stores (like `UserStore`) and the `pluginStore` are provided to all components via **React Context**, making them easily accessible throughout the application.
     * This architecture prevents hardcoded dependencies, as components interact with stores through string-based IDs rather than direct imports.
 
+* **Decoupled Networking Service:**
+
+    * The application provides a central, host-controlled Apollo Client instance for all GraphQL operations (`Query`, `Mutation`, `Subscription`).
+
+    * This service is wrapped in `graphqlMethods` and dependency-injected into all stores (host and plugin) that extend `GenericStore`.
+
+    * Plugins do not create their own network clients. They call `this.graphqlMethods.doQuery(...)` from within their store, ensuring that all requests automatically use the host's authentication (e.g., auth tokens from `UserStore`) and global error handling (e.g., 401 token refresh logic).
+
+* **Global Notification System:**
+
+    * A decoupled notification system (using `antd`) is provided by the host.
+
+    * The notification `api` is injected into all stores (via `this.notificationService`) for use in data-fetching logic (e.g., `this.notificationService.error(...)`).
+
+    * The `api` is also provided via a React Context and `useNotifications()` hook for use in plugin components (e.g., `notify.info(...)`).
+
+    * Plugins can trigger global, theme-aware notifications without ever importing or depending on `antd` directly.
+
+* **Global Event Bus (Pub/Sub):**
+
+    * A simple, application-wide **Event Bus** is provided for fully decoupled, many-to-many communication.
+
+    * The `eventBus` instance is injected into all stores, allowing any store to `emit` an event (e.g., `this.eventBus.emit('hello:nameChanged', { newName: 'User' })`).
+
+    * Any other store can subscribe to this event (e.g., `this.eventBus.on('hello:nameChanged', ...)`), allowing plugins to react to each other's actions without any direct knowledge of one another.
+
+
 * **Theming**:
     * The application supports **light and dark themes** using `styled-components`. A central `CommonStyles.js` file defines the base theme palettes.
     * Plugins can **extend the base theme** by providing their own `themeStyle.js` file and referencing it in their manifest. These theme overrides are deeply merged with the application's active theme.
 
-* **Internationalization (i18n)**: The application is fully internationalized using **`i18next`** and `react-i18next`. Language resources are stored in JSON files within the `public/locales` directory, and components use the `useTranslation` hook or the `FormatMessage` component to display translated strings.
+* **Internationalization (i18n):**
+The application is fully internationalized using **`i18next`** and `react-i18next`. Language resources are stored in JSON files within the `public/locales` directory, and components use the `useTranslation` hook or the `FormatMessage` component to display translated strings.
 
 * **Static Asset Management**: Plugins can include their own static assets (e.g., images) in a `public` sub-directory. The Vite build process is configured to automatically copy these assets to the final build output, making them accessible to the plugin's components.
 
