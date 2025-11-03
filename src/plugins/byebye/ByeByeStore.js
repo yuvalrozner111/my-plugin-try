@@ -8,15 +8,19 @@ export class ByeByeStore extends GenericStore {
   country = { name: '', capital: '', currency: '' };
   backendMessage = '';
   helloEventMessage = 'Waiting for hello event...';
+  subscribedToHello = false; // track whether we've subscribed
 
   constructor() {
     super();
     makeObservable(this, {
       country: observable,
       backendMessage: observable,
+      helloEventMessage: observable,
+      subscribedToHello: observable,
       setCountry: action,
       fetchCountry: flow,
       handleHelloNameChange: action,
+      subscribeToHelloEvents: action,
     });
   }
 
@@ -57,21 +61,28 @@ export class ByeByeStore extends GenericStore {
   }
 
   /**
-   * We override setEventBus to subscribe to events when the bus is injected.
+   * We override setEventBus to store the bus but do NOT auto-subscribe.
+   * Subscription now happens only when subscribeToHelloEvents() is called.
    */
   setEventBus(bus) {
     super.setEventBus(bus); // This sets 'this.eventBus'
-    
-    console.log('ByeByeStore subscribing to event:', HELLO_EVENTS.NAME_CHANGED);
-    
-    // Subscribe to the event from the 'hello' plugin
-    this.eventBus.on(
-      HELLO_EVENTS.NAME_CHANGED,
-      this.handleHelloNameChange
-    );
-    
-    // It's good practice to have a cleanup method,
-    // but for stores with app-long lifecycles, it's less critical.
+    console.log('ByeByeStore received event bus (will not auto-subscribe).');
+    // do NOT call this.eventBus.on(...) here anymore
+  }
+
+  /**
+   * Subscribe to hello plugin events on demand.
+   * Calling multiple times is safe (only subscribes once).
+   */
+  subscribeToHelloEvents() {
+    if (this.subscribedToHello) return;
+    if (!this.eventBus) {
+      console.warn('Event bus not yet available to ByeByeStore.');
+      return;
+    }
+    this.eventBus.on(HELLO_EVENTS.NAME_CHANGED, this.handleHelloNameChange);
+    this.subscribedToHello = true;
+    console.log('ByeByeStore subscribed to', HELLO_EVENTS.NAME_CHANGED);
   }
 
   handleHelloNameChange = (payload) => {

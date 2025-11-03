@@ -24,6 +24,11 @@ function ByeBye() {
     // userStore.user will update reactively (this component is an observer)
   };
 
+  const handleSubscribeEvents = () => {
+    if (!byeByeStore) return;
+    byeByeStore.subscribeToHelloEvents();
+  };
+
   return (
     <ByeByeContainer>
       ByeBye from the plugin. 👋
@@ -58,6 +63,17 @@ function ByeBye() {
               <div>No user profile loaded.</div>
             )}
           </div>
+
+          {/* Event button: subscribe to hello events on demand */}
+          <div style={{ marginTop: 8 }}>
+            <CounterButton
+              onClick={handleSubscribeEvents}
+              disabled={byeByeStore?.subscribedToHello}
+            >
+              {byeByeStore?.subscribedToHello ? 'Subscribed' : 'Event Button'}
+            </CounterButton>
+          </div>
+
         </div>
       </ControlsRow>
       <input
