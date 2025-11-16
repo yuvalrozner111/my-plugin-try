@@ -1,7 +1,7 @@
 // src/plugins/nowTime/manifest.js
 export default {
   id: 'nowTime',
-  title: 'Now Time',
+  titleKey: 'PLUGIN_TITLE',
   icon: '⏰',
   // Lazy-load the plugin's root React component when needed
   load: () => import('./nowTime.jsx'),
