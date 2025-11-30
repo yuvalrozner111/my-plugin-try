@@ -9,9 +9,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Build explicit copy targets by enumerating files inside each plugin's `public` folder.
-// This avoids passing a glob that might not match on Windows and ensures the
-// vite-plugin-static-copy receives only existing file paths (with posix separators).
+// Build copy targets for plugin public assets
 const getStaticCopyTargets = () => {
   const pluginRoot = path.resolve(__dirname, 'src/plugins');
   if (!existsSync(pluginRoot)) return [];
@@ -26,24 +24,17 @@ const getStaticCopyTargets = () => {
     const publicDir = path.resolve(pluginRoot, pluginName, 'public');
     if (!existsSync(publicDir)) continue;
 
-    const entries = readdirSync(publicDir);
-    if (!entries || entries.length === 0) continue;
-
-    // Only include regular files and convert backslashes to forward slashes
-    const filePaths = entries
-      .map(name => path.join(publicDir, name))
-      .filter(p => {
-        try {
-          return lstatSync(p).isFile();
-        } catch (e) {
-          return false;
-        }
-      })
-      .map(p => p.replace(/\\/g, '/'));
-
-    if (filePaths.length > 0) {
-      targets.push({ src: filePaths, dest: `plugins/${pluginName}` });
-    }
+    // New, simpler logic:
+    // This tells the copy plugin to copy all contents (*)
+    // from the plugin's public dir...
+    const srcPath = path.join(pluginRoot, pluginName, 'public', '*').replace(/\\/g, '/');
+    
+    // ...to the destination 'plugins/[pluginName]'
+    // This will correctly copy files and nested dirs (like /locales)
+    targets.push({
+      src: srcPath,
+      dest: `plugins/${pluginName}`
+    });
   }
 
   return targets;
