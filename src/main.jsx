@@ -6,6 +6,10 @@ import { NetworkContext } from './contexts/NetworkContext.js';
 import { client, graphqlMethods } from './services/NetworkService.js';
 import { eventBus } from './services/EventBus.js';
 
+import 'smart-webcomponents-react/source/styles/smart.default.css';
+// import { Smart } from 'smart-webcomponents-react/core/smart.element';
+// Smart.License = '8414516F-15A2-4D84-A7AF-A9A72400DB02';
+
 // 1. Inject the stores into the client (for headers, token refresh)
 client.setStores(stores);
 

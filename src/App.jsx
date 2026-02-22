@@ -15,6 +15,13 @@ import { supportedLanguages } from './config/i18n.js';
 import { STRINGS } from './constants/internal.js';
 import FormatMessage from './components/common/FormatMessage.jsx'
 
+// import 'smart-webcomponents-react/source/styles/smart.default.css';
+
+
+import { GanttChart, Smart } from 'smart-webcomponents-react/ganttchart';
+import 'smart-webcomponents-react/source/styles/smart.default.css';
+Smart.License = "8414516F-15A2-4D84-A7AF-A9A72400DB0";
+
 function App() {
   const getInitialTheme = () => {
     try {
@@ -58,52 +65,54 @@ function App() {
     setLanguage(lng);
   }
 
-  const getButtonContainer = () => { return (
-    <ButtonContainer>
-      <IconButton
-        href="https://github.com/yuvalrozner111/my-plugin-try"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Open project on GitHub"
-      >
-        <FaGithub size={18} aria-hidden="true" />
-        <span>GitHub</span>
-      </IconButton>
+  const getButtonContainer = () => {
+    return (
+      <ButtonContainer>
+        <IconButton
+          href="https://github.com/yuvalrozner111/my-plugin-try"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Open project on GitHub"
+        >
+          <FaGithub size={18} aria-hidden="true" />
+          <span>GitHub</span>
+        </IconButton>
 
-      <IconButton
-        href="https://jules.google.com/task?repo=yuvalrozner111%2Fmy-plugin-try"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Open project in Jules"
-      >
-        <FaBrain size={18} aria-hidden="true" />
-        <span>Jules</span>
-      </IconButton>
+        <IconButton
+          href="https://jules.google.com/task?repo=yuvalrozner111%2Fmy-plugin-try"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Open project in Jules"
+        >
+          <FaBrain size={18} aria-hidden="true" />
+          <span>Jules</span>
+        </IconButton>
 
-      <label htmlFor='lang-select' style={{ marginLeft: '10px' }}>Language:</label>
-      <select
-        id='lang-select'
-        value={language}
-        onChange={e => changeLanguage(e.target.value)}
-        aria-label="Select language"
-      >
-        {supportedLanguages.map(lang => (
-          <option key={lang} value={lang}>
-            {lang}
-          </option>
-        ))}
-      </select>
+        <label htmlFor='lang-select' style={{ marginLeft: '10px' }}>Language:</label>
+        <select
+          id='lang-select'
+          value={language}
+          onChange={e => changeLanguage(e.target.value)}
+          aria-label="Select language"
+        >
+          {supportedLanguages.map(lang => (
+            <option key={lang} value={lang}>
+              {lang}
+            </option>
+          ))}
+        </select>
 
-      <label htmlFor='theme-select' style={{ marginLeft: '10px' }}>Theme:</label>
-      <ThemeButton onClick={toggleTheme}>
-      </ThemeButton>
-      <input
-        type="text"
-        value={helloStore.name}
-        onChange={e => helloStore.setName(e.target.value)}
-      />
-    </ButtonContainer>
-  )};
+        <label htmlFor='theme-select' style={{ marginLeft: '10px' }}>Theme:</label>
+        <ThemeButton onClick={toggleTheme}>
+        </ThemeButton>
+        <input
+          type="text"
+          value={helloStore.name}
+          onChange={e => helloStore.setName(e.target.value)}
+        />
+      </ButtonContainer>
+    )
+  };
 
   return (
     <ThemeProvider theme={themeProps}>
@@ -111,7 +120,7 @@ function App() {
       <AppContainer>
         <LogoContainer src={viteLogo} alt="Logo" />
         <AppTitle>PluginApp</AppTitle>
-        <div>
+        {/* <div>
         {userStore.isLoggedIn ? (
           <div>
             <p>{t(STRINGS.WELCOME_TITLE)}, {userStore.user.name}!</p>
@@ -124,7 +133,7 @@ function App() {
             <button onClick={() => userStore.login('Yuval')}>Login as Yuval</button>
           </div>
         )}
-      </div>
+      </div> */}
         {getButtonContainer()}
         <PluginBar plugins={plugins} activeId={activeId} onSelect={handlePluginClicked} />
         <PluginOutlet plugin={pluginById[activeId]} key={activeId} />

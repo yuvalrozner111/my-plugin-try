@@ -1,0 +1,11 @@
+{
+    "noId": "smartGanttChart דורש מזהה כדי לשמור / לטעון / לנקות מצב.",
+    "ok": "בסדר",
+    "cancel": "בטל",
+    "delete": "מחק",
+    "confirm": "{{componentName}} יימחק לצמיתות, <b> האם אתה בטוח? </b>",
+    "taskColumnLabel": "שם המטלה",
+    "label": "תווית",
+    "deleteLink": "מחק קישור",
+    "ADD": "הוספפפ"
+}

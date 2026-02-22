@@ -59,7 +59,7 @@ export const LogoContainer = styled.img`
 `;
 
 export const AppTitle = styled.div`
-  font-size: 2.6em !important;
+  font-size: 2.3em !important;
   font-weight: bold;
 `;
 
